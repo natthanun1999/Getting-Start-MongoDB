@@ -1,15 +1,17 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const mongooseConnection = require('./src/providers/mongoose.provider')
-const ParkingRoute = require('./src/routes/parking.route')
+const UsersRoute = require('./src/routes/users.route')
 
 mongooseConnection()
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/parking', ParkingRoute)
+app.use('/users', UsersRoute)
 app.use('/', (req, res) => res.send('Hello World!'))
 
 app.listen(process.env.PORT, () => {
